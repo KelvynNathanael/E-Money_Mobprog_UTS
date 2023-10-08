@@ -4,6 +4,7 @@ import 'package:mobileapps/Profile.dart';
 import 'package:mobileapps/Qris.dart';
 import 'package:mobileapps/GlobalVariabel.dart';
 import 'package:mobileapps/main.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const Finance());
@@ -127,10 +128,14 @@ class _BuySellButtonState extends State<BuySellButton> {
         btcController.clear();
       });
       Balance.deductMoney(cost);
-      for (int i = 0; i < historys.nama.length; i++) {
-        print(
-            "Nama: ${historys.nama[i]}, Money: ${historys.money[i]}, Date: ${historys.date[i]}");
-      }
+      DateTime now = DateTime.now();
+
+      String formattedDate = DateFormat('yyyy-MM-dd HH:mm').format(now);
+      historys.addHistory(
+        widget.coin.symbol, // newName
+        "- Rp. ${NumberFormat('#,###', 'id_ID').format(cost)}", // newMoney
+        formattedDate, // newDate
+      );
     } else {
       // Handle insufficient funds.
       showDialog(
@@ -164,6 +169,14 @@ class _BuySellButtonState extends State<BuySellButton> {
         btcController.clear();
       });
       Balance.addMoney(income);
+      DateTime now = DateTime.now();
+
+      String formattedDate = DateFormat('yyyy-MM-dd HH:mm').format(now);
+      historys.addHistory(
+        widget.coin.symbol, // newName
+        "+ Rp. ${NumberFormat('#,###', 'id_ID').format(income)}", // newMoney
+        formattedDate, // newDate
+      );
     } else {
       // Handle insufficient coin balance.
       showDialog(
