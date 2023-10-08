@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mobileapps/Profile.dart';
 import 'package:mobileapps/Qris.dart';
 import 'package:mobileapps/GlobalVariabel.dart';
@@ -14,7 +13,7 @@ final ethereum = GlobalVariables.ethereum;
 final litecoin = GlobalVariables.litecoin;
 final ripple = GlobalVariables.ripple;
 
-double money = Balance.balance;
+double money = GlobalData.money;
 
 class Finance extends StatefulWidget {
   const Finance({Key? key}) : super(key: key);
@@ -58,54 +57,72 @@ class Navbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      width: 400,
+      height: 100,
+      clipBehavior: Clip.antiAlias,
+      decoration: const BoxDecoration(),
+      child: Stack(
         children: [
-          Text(
-            'ECOM',
-            style: TextStyle(
-              color: Color(0xFF118EEA),
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+          const Positioned(
+            left: 20,
+            top: 75, // Mengatur top ke 0 agar tetap di atas
+            child: Text(
+              'Finance',
+              style: TextStyle(
+                color: Color(0xFF118EEA),
+                fontSize: 36,
+                fontFamily: 'Lato',
+                fontWeight: FontWeight.w700,
+                height: 0.03,
+                letterSpacing: 0.38,
+              ),
             ),
           ),
-          Text(
-            'Finance',
-            style: TextStyle(
-              color: Color(0xFF118EEA),
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
+          Positioned(
+            left: 327,
+            top: 25, // Mengatur top ke 9 agar tetap di atas
+            child: InkWell(
+              onTap: () {
+                // Pindah ke halaman Profile.dart
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Profile()));
+              },
+              child: Container(
+                width: 28,
+                height: 28,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/profileicon.png'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const Positioned(
+            left: 20,
+            top: 25, // Mengatur top ke 9 agar tetap di atas
+            child: Text(
+              'ECO-M',
+              style: TextStyle(
+                color: Color(0xFF118EEA),
+                fontSize: 18,
+                fontFamily: 'Lato',
+                fontWeight: FontWeight.w700,
+                height: 0,
+              ),
             ),
           ),
         ],
       ),
-      actions: [
-        Container(
-          margin: EdgeInsets.only(right: 17.0),
-          child: InkWell(
-            onTap: () {
-              // Pindah ke halaman profile.dart
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Profile()));
-            },
-            child: SvgPicture.asset(
-              'assets/icons/profile.svg',
-              width: 24,
-              height: 24,
-            ),
-          ),
-        ),
-      ],
-      backgroundColor: Colors.white,
-      elevation: 0,
-      automaticallyImplyLeading: false, // Untuk menghilangkan tombol "Back"
     );
   }
 }
 
 class BuySellButton extends StatefulWidget {
   final Coin coin;
+
   BuySellButton({required this.coin});
 
   @override
@@ -113,7 +130,6 @@ class BuySellButton extends StatefulWidget {
 }
 
 class _BuySellButtonState extends State<BuySellButton> {
-  Historys historys = Historys();
   TextEditingController btcController = TextEditingController();
   double btcAmount = 0;
 
@@ -126,11 +142,6 @@ class _BuySellButtonState extends State<BuySellButton> {
         money -= cost;
         btcController.clear();
       });
-      Balance.deductMoney(cost);
-      for (int i = 0; i < historys.nama.length; i++) {
-        print(
-            "Nama: ${historys.nama[i]}, Money: ${historys.money[i]}, Date: ${historys.date[i]}");
-      }
     } else {
       // Handle insufficient funds.
       showDialog(
@@ -156,14 +167,12 @@ class _BuySellButtonState extends State<BuySellButton> {
 
   void sellCoin() {
     double amountToSell = double.parse(btcController.text);
-    double income = amountToSell * widget.coin.harga;
     if (amountToSell <= widget.coin.jumlah.value) {
       setState(() {
         widget.coin.jumlah.value -= amountToSell;
-        money = money + income;
+        money += amountToSell * widget.coin.harga;
         btcController.clear();
       });
-      Balance.addMoney(income);
     } else {
       // Handle insufficient coin balance.
       showDialog(
