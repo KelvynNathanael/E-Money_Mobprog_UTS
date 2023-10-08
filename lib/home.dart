@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Home
+          // Navbar
           Container(
             margin: EdgeInsets.only(left: 15.0),
             child: Text(
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          // END Home
+          // END Navbar
 
           //Hero
           Center(
@@ -343,7 +343,7 @@ class _HomeState extends State<Home> {
               Container(
                 margin: EdgeInsets.only(left: 20, top: 5),
                 child: Text(
-                  myHistory.nama[myHistory.nama.length - 1],
+                  GlobalVariables.historys.nama[0],
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -354,10 +354,10 @@ class _HomeState extends State<Home> {
               Container(
                 margin: EdgeInsets.only(top: 5, right: 40),
                 child: Text(
-                  myHistory.money[myHistory.money.length - 1],
+                 GlobalVariables.historys.money[0],
                   style: TextStyle(
                     fontSize: 12,
-                    color: myHistory.money[myHistory.money.length - 1]
+                    color: GlobalVariables.historys.money[0]
                             .startsWith("+")
                         ? Colors.green
                         : Colors.red,
@@ -370,8 +370,7 @@ class _HomeState extends State<Home> {
           Container(
             margin: EdgeInsets.only(left: 20),
             child: Text(
-              myHistory.date[myHistory.date.length -
-                  1], //dari global data getDate, globaldata DATE[globaldata.length-1]
+              GlobalVariables.historys.date[0], //dari global data getDate, globaldata DATE[globaldata.length-1]
               style: TextStyle(fontSize: 10, color: Color(0xFF808080)),
             ),
           ),
@@ -383,8 +382,7 @@ class _HomeState extends State<Home> {
               Container(
                 margin: EdgeInsets.only(left: 20, top: 5),
                 child: Text(
-                  myHistory.nama[myHistory.nama.length -
-                      2], //globaldata NAME[globaldata.length-2]
+                  GlobalVariables.historys.nama[1], //globaldata NAME[globaldata.length-2]
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -395,11 +393,10 @@ class _HomeState extends State<Home> {
               Container(
                 margin: EdgeInsets.only(top: 5, right: 40),
                 child: Text(
-                  myHistory.money[myHistory.money.length -
-                      2], //globaldata PRICE[globaldata.length-2]
+                  GlobalVariables.historys.money[1], //globaldata PRICE[globaldata.length-2]
                   style: TextStyle(
                       fontSize: 12,
-                      color: myHistory.money[myHistory.money.length - 2]
+                      color: GlobalVariables.historys.money[1]
                               .startsWith("+")
                           ? Colors.green
                           : Colors
@@ -413,8 +410,7 @@ class _HomeState extends State<Home> {
           Container(
             margin: EdgeInsets.only(left: 20),
             child: Text(
-              myHistory.date[myHistory.date.length -
-                  2], //dari global data getDate, globaldata DATE[globaldata.length-2]
+             GlobalVariables.historys.date[1], //dari global data getDate, globaldata DATE[globaldata.length-2]
               style: TextStyle(fontSize: 10, color: Color(0xFF808080)),
             ),
           ),
@@ -426,8 +422,7 @@ class _HomeState extends State<Home> {
               Container(
                 margin: EdgeInsets.only(left: 20, top: 5),
                 child: Text(
-                  myHistory.nama[myHistory.nama.length -
-                      3], //globaldata NAME[globaldata.length-3]
+                 GlobalVariables.historys.nama[2], //globaldata NAME[globaldata.length-3]
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -438,11 +433,10 @@ class _HomeState extends State<Home> {
               Container(
                 margin: EdgeInsets.only(top: 5, right: 40),
                 child: Text(
-                  myHistory.money[myHistory.money.length -
-                      3], //globaldata PRICE[globaldata.length-3]
+                 GlobalVariables.historys.money[2], //globaldata PRICE[globaldata.length-3]
                   style: TextStyle(
                       fontSize: 12,
-                      color: myHistory.money[myHistory.money.length - 3]
+                      color:GlobalVariables.historys.money[2]
                               .startsWith("+")
                           ? Colors.green
                           : Colors
@@ -456,8 +450,7 @@ class _HomeState extends State<Home> {
           Container(
             margin: EdgeInsets.only(left: 20),
             child: Text(
-              myHistory.date[myHistory.date.length -
-                  3], //dari global data getDate, globaldata DATE[globaldata.length-3]
+             GlobalVariables.historys.date[2], //dari global data getDate, globaldata DATE[globaldata.length-3]
               style: TextStyle(fontSize: 10, color: Color(0xFF808080)),
             ),
           ),
